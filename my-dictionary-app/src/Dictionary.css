@@ -1,0 +1,32 @@
+.Dictionary section {
+    background: #222222;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 15%);
+    margin: 10px 0;
+  }
+  
+  .Dictionary .search-form {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .Dictionary label {
+    margin-right: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #cccccc; 
+  }
+  
+  .Dictionary input {
+    flex: 1;
+    border-radius: 6px;
+    padding: 10px;
+    color: #cccccc; 
+    background-color: #333333; 
+    border: 1px solid #555555; 
+    font-size: 16px;
+    margin-top: 10px;
+   
+  }

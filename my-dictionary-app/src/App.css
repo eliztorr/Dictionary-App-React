@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+  background:#222222; 
+  color: #cccccc; 
+}
+
+.App-header {
+  background:   #333333; 
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.App h1{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+  font-size: 60px; 
+}
+.App h2{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+  font-size: 46px; 
+}
+
+.App footer{
+  font-size: 14px; 
+  color: #999999; 
+  padding: 20px; 
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.App footer a{
+  color: #cec3c3;
+  text-decoration: none; 
+}
