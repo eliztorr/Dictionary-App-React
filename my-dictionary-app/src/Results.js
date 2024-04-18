@@ -6,7 +6,6 @@ import "./Results.css";
 export default function Results(props) {
   const [audioUrls, setAudioUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null); // State to store error message
 
   // Define handleAudioFetch using useCallback
   const handleAudioFetch = useCallback(() => {
@@ -15,20 +14,14 @@ export default function Results(props) {
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
-          if (data.title === "No Definitions Found") {
-            setError("No definitions found. Please try another word or make sure you spelled it correctly.");
-            setAudioUrls([]); // Clear audio URLs if no definitions are found
-          } else {
-            const urls = data[0]?.phonetics
-              .filter((phonetic) => phonetic.audio)
-              .map((phonetic) => phonetic.audio);
-            setAudioUrls(urls);
-          }
+          const urls = data[0]?.phonetics
+            .filter((phonetic) => phonetic.audio)
+            .map((phonetic) => phonetic.audio);
+          setAudioUrls(urls);
           setIsLoading(false); // Set loading state to false once audio URLs are fetched
         })
         .catch((error) => {
           console.error("Error fetching audio:", error);
-          setError("An error occurred while fetching the data."); // Set general error message
           setIsLoading(false); // Set loading state to false in case of error
         });
     }
@@ -62,11 +55,6 @@ export default function Results(props) {
     }
   };
 
-  // Check for error and display error message
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   // Check if props.definition exists and is not null
   if (props.definition) {
     return (
@@ -97,13 +85,11 @@ export default function Results(props) {
 
         {/* Check if props.definition.meanings is an array before mapping over it */}
         {Array.isArray(props.definition.meanings) &&
-          props.definition.meanings.map(function (meaning, index) {
-            return (
-              <section key={index}>
-                <Meaning meaning={meaning} />
-              </section>
-            );
-          })}
+          props.definition.meanings.map((meaning, index) => (
+            <section key={index}>
+              <Meaning meaning={meaning} />
+            </section>
+          ))}
       </div>
     );
   } else {
