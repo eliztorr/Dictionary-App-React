@@ -16,7 +16,7 @@ export default function Results(props) {
         .then((response) => response.json())
         .then((data) => {
           if (data.title === "No Definitions Found") {
-            setError(data.message); // Set error message if no definitions are found
+            setError("No definitions found. Please try another word or make sure you spelled it correctly.");
             setAudioUrls([]); // Clear audio URLs if no definitions are found
           } else {
             const urls = data[0]?.phonetics
