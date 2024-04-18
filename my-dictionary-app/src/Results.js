@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Phonetic from "./Phonetic";
 import Meaning from "./Meaning";
 import "./Results.css";
@@ -7,9 +7,8 @@ export default function Results(props) {
   const [audioUrls, setAudioUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Function to handle fetching audio
-  const handleAudioFetch = () => {
-    // Check if props.definition exists and is not null before accessing its properties
+  // Define handleAudioFetch using useCallback
+  const handleAudioFetch = useCallback(() => {
     if (props.definition?.word) {
       let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en_US/${props.definition.word}`;
       fetch(apiUrl)
@@ -26,7 +25,12 @@ export default function Results(props) {
           setIsLoading(false); // Set loading state to false in case of error
         });
     }
-  };
+  }, [props.definition]); // Include props.definition as a dependency
+
+  // Fetch audio URLs when component mounts
+  useEffect(() => {
+    handleAudioFetch(); // Call handleAudioFetch when props.definition changes
+  }, [handleAudioFetch]); // Include handleAudioFetch as a dependency
 
   // Function to handle playing audio
   const handlePlayAudio = (audioUrl) => {
@@ -47,7 +51,7 @@ export default function Results(props) {
     } else if (url.includes("au.mp3")) {
       return "Australia";
     } else {
-      return ""; // Default case, no specific label
+      return ""; 
     }
   };
 
