@@ -9,18 +9,25 @@ export default function Dictionary(props) {
   const [loaded, setLoaded] = useState(false);
   const [definition, setDefinition] = useState(null);
   const [photos, setPhotos] = useState([]);
-  
+  const [error, setError] = useState(null); // State to store error message
+
   function handleImages(response) {
     setPhotos(response.data.photos);
   }
 
   function handleResponse(response) {
-    setDefinition(response.data);
-    let apiKey = "95302ab7f46ea49b23t9315bo4bc8de7";
-    let apiUrl = `https://api.shecodes.io/images/v1/search?query=${response.data.word}&key=${apiKey}`;
-    axios
-      .get(apiUrl, { headers: { Authorization: `Bearer ${apiKey}` } })
-      .then(handleImages);
+    if (response.data.status === "not_found") {
+      setDefinition(null); // Clear definition if word is not found
+      setError("Word not found. Please try another word or make sure you spelled it correctly.");
+      setPhotos([]); // Clear photos if word is not found
+    } else {
+      setDefinition(response.data);
+      let apiKey = "95302ab7f46ea49b23t9315bo4bc8de7";
+      let apiUrl = `https://api.shecodes.io/images/v1/search?query=${response.data.word}&key=${apiKey}`;
+      axios
+        .get(apiUrl, { headers: { Authorization: `Bearer ${apiKey}` } })
+        .then(handleImages);
+    }
   }
 
   function load() {
@@ -65,6 +72,7 @@ export default function Dictionary(props) {
           
           </form>
         </section>
+        {error && <div className="error-message">{error}</div>}
         <Results definition={definition} />
         <Photos photos={photos} />
       </div>
