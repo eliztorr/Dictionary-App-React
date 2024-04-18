@@ -6,9 +6,14 @@ import "./Dictionary.css";
 
 export default function Dictionary(props) {
   const [keyword, setKeyword] = useState(props.defaultKeyword);
+  let [results, setResults] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [definition, setDefinition] = useState(null);
   const [photos, setPhotos] = useState([]);
+
+  function handleAudioResponse(response) {
+    setResults(response.data[0]);
+  }
 
   function handleImages(response) {
     setPhotos(response.data.photos);
@@ -35,6 +40,11 @@ export default function Dictionary(props) {
     console.log("API URL:", apiUrl);
 
     axios.get(apiUrl).then(handleResponse);
+  }
+
+  function getAudio(){
+    let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en_US/${keyword}`;
+    axios.get(apiUrl).then(handleAudioResponse);
   }
 
   function handleSubmit(event) {
