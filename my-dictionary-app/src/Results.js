@@ -17,13 +17,14 @@ export default function Results(props) {
         .then((data) => {
           if (data.title === "No Definitions Found") {
             setError(data.message); // Set error message if no definitions are found
+            setAudioUrls([]); // Clear audio URLs if no definitions are found
           } else {
             const urls = data[0]?.phonetics
               .filter((phonetic) => phonetic.audio)
               .map((phonetic) => phonetic.audio);
             setAudioUrls(urls);
-            setIsLoading(false); // Set loading state to false once audio URLs are fetched
           }
+          setIsLoading(false); // Set loading state to false once audio URLs are fetched
         })
         .catch((error) => {
           console.error("Error fetching audio:", error);
