@@ -28,7 +28,7 @@ function App() {
           </a>{" "}
           and{" "}
           <a
-            href="https://dictionary-app-react-add-on.netlify.app/"
+            href="https://dictionary-app-react-addon.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
