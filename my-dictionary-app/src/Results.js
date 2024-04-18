@@ -54,7 +54,7 @@ export default function Results(props) {
   // Fetch audio URLs when component mounts
   useEffect(() => {
     handleAudioFetch();
-  }, [props.definition]);
+  }, [props.definition, handleAudioFetch]);
 
   // Check if props.definition exists and is not null
   if (props.definition) {
